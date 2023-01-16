@@ -10,6 +10,6 @@ class Response extends \Omnipay\Common\Message\AbstractResponse
 
     public function isSuccessful(): bool
     {
-        return \isset($this->data->status) && $this->data->status === self::SUCCESS_STATUS;
+        return isset($this->data->status) && $this->data->status === self::SUCCESS_STATUS;
     }
 }
