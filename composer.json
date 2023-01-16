@@ -1,0 +1,41 @@
+{
+    "name": "tomigun-ua/omnipay-amex",
+    "version": "0.1.0",
+    "type": "library",
+    "description": "Amex driver for the Omnipay 3.0 payment processing library",
+    "keywords": [
+        "gateway",
+        "merchant",
+        "amex",
+        "omnipay",
+        "pay",
+        "payment"
+    ],
+    "homepage": "https://github.com/tomigun-ua/omnipay-amex",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maksym Sharov",
+            "email": "tomigun.ukraine@gmail.com"
+        },
+        {
+            "name": "Omnipay Contributors",
+            "homepage": "https://github.com/tomigun-ua/omnipay-amex/contributors"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Omnipay\\Amex\\" : "src/" }
+    },
+    "require": {
+        "php": ">=7.4",
+        "omnipay/common": "~v3.2"
+    },
+    "require-dev": {
+        "omnipay/tests": "~v4.1"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}
