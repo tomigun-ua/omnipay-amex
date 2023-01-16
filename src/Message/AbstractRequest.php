@@ -38,17 +38,17 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     /**
      * @return static
      */
-    public function setVersion(string $value): self
+    public function setApiVersion(string $value): self
     {
-        return $this->setParameter('version', $value);
+        return $this->setParameter('apiVersion', $value);
     }
 
     /**
      * @return string
      */
-    public function getVersion(): string
+    public function getApiVersion(): string
     {
-        return $this->getParameter('version');
+        return $this->getParameter('apiVersion');
     }
 
     /**
@@ -86,7 +86,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     {
         $host = !empty($this->getHost()) ? \rtrim($this->getHost(), '/') : self::DEFAULT_HOST;
 
-        return $host . self::DEFAULT_ENDPOINT . '/' . $this->getVersion();
+        return $host . self::DEFAULT_ENDPOINT . '/' . $this->getApiVersion();
     }
 
     public function getHeaders(): array

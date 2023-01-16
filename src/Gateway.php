@@ -28,4 +28,59 @@ class Gateway extends \Omnipay\Common\AbstractGateway
     {
         return $this->createRequest(CheckStatusRequest::class, $parameters);
     }
+
+    /**
+     * @return static
+     */
+    public function setHost(string $value): self
+    {
+        return $this->setParameter('host', $value);
+    }
+
+    public function getHost(): ?string
+    {
+        return $this->getParameter('host');
+    }
+
+    /**
+     * @return static
+     */
+    public function setMerchantId(string $value): self
+    {
+        return $this->setParameter('merchantId', $value);
+    }
+
+    public function getMerchantId(): string
+    {
+        return $this->getParameter('merchantId');
+    }
+
+    /**
+     * @return static
+     */
+    public function setApiVersion(string $value): self
+    {
+        return $this->setParameter('apiVersion', $value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiVersion(): string
+    {
+        return $this->getParameter('apiVersion');
+    }
+
+    /**
+     * @return static
+     */
+    public function setPassword(string $value): self
+    {
+        return $this->setParameter('password', $value);
+    }
+
+    public function getPassword(): string
+    {
+        return $this->getParameter('password');
+    }
 }
