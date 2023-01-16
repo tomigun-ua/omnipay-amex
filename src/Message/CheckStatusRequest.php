@@ -6,7 +6,7 @@ namespace Omnipay\Amex\Message;
 
 final class CheckStatusRequest extends AbstractRequest
 {
-    private const PATH = '/%s/information';
+    private const PATH = '/information';
 
     public function getData(): array
     {
@@ -17,6 +17,6 @@ final class CheckStatusRequest extends AbstractRequest
     {
         $host = parent::getEndpoint();
 
-        return \sprintf(\rtrim($host, '/') . self::PATH, $this->getVersion());
+        return \rtrim($host, '/') . self::PATH;
     }
 }

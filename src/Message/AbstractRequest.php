@@ -6,7 +6,8 @@ namespace Omnipay\Amex\Message;
 
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
-    private const DEFAULT_ENDPOINT = 'https://gateway-na.americanexpress.com/api/rest/version';
+    private const DEFAULT_HOST = 'https://gateway-na.americanexpress.com';
+    private const DEFAULT_ENDPOINT = '/api/rest/version';
 
     /**
      * @return static
@@ -83,21 +84,21 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     public function getEndpoint(): string
     {
-        $host = $this->getHost();
+        $host = !empty($this->getHost()) ? \rtrim($this->getHost(), '/') : self::DEFAULT_HOST;
 
-        return !empty($host) ? $host : self::DEFAULT_ENDPOINT;
+        return $host . self::DEFAULT_ENDPOINT . '/' . $this->getVersion();
     }
 
     public function getHeaders(): array
     {
         return [
             'Authorization' => 'Basic ' . \base64_encode(
-                    \sprintf(
-                        '%s:%s',
-                        'merchant.' . $this->getMerchantId(),
-                        $this->getPassword()
-                    )
-                ),
+                \sprintf(
+                    '%s:%s',
+                    'merchant.' . $this->getMerchantId(),
+                    $this->getPassword()
+                )
+            ),
         ];
     }
 
