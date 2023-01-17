@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Omnipay\Amex;
 
 use Omnipay\Amex\Message\CheckStatusRequest;
+use Omnipay\Amex\Message\InitiateAuthenticationRequest;
 
 class Gateway extends \Omnipay\Common\AbstractGateway
 {
     public function getName(): string
     {
-        return 'OmnipayAmex';
+        return 'Amex';
     }
 
     public function getDefaultParameters(): array
@@ -27,6 +28,11 @@ class Gateway extends \Omnipay\Common\AbstractGateway
     public function checkStatus(array $parameters = []): \Omnipay\Common\Message\RequestInterface
     {
         return $this->createRequest(CheckStatusRequest::class, $parameters);
+    }
+
+    public function initiateAuthentication(array $parameters = []): \Omnipay\Common\Message\RequestInterface
+    {
+        return $this->createRequest(InitiateAuthenticationRequest::class, $parameters);
     }
 
     /**
