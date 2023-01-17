@@ -9,8 +9,6 @@ use Psr\Http\Message\StreamInterface;
 
 class Response extends \Omnipay\Common\Message\AbstractResponse
 {
-    private const SUCCESS_STATUSES = ['SUCCESS', 'OPERATING'];
-
     public function __construct(RequestInterface $request, $data)
     {
         if ($data instanceof StreamInterface) {
@@ -25,6 +23,6 @@ class Response extends \Omnipay\Common\Message\AbstractResponse
 
     public function isSuccessful(): bool
     {
-        return isset($this->data['status']) && \in_array($this->data['status'], self::SUCCESS_STATUSES);
+        return isset($this->data['status']);
     }
 }
