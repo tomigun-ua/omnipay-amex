@@ -69,7 +69,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         $headers = $this->getHeaders();
 
         $body = ($this->getHttpMethod() !== 'GET' && $data)
-            ? \http_build_query($data, '', '&')
+            ? \json_encode($data)
             : null;
 
         $httpResponse = $this->httpClient->request(
