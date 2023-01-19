@@ -122,12 +122,12 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     {
         return [
             'Authorization' => 'Basic ' . \base64_encode(
-                    \sprintf(
-                        '%s:%s',
-                        'merchant.' . $this->getMerchantId(),
-                        $this->getPassword()
-                    )
-                ),
+                \sprintf(
+                    '%s:%s',
+                    'merchant.' . $this->getMerchantId(),
+                    $this->getPassword()
+                )
+            ),
         ];
     }
 
