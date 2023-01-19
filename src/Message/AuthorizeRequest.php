@@ -7,11 +7,11 @@ namespace Omnipay\Amex\Message;
 use Omnipay\Amex\Helper\ExpirationMonthNormalizer;
 use Omnipay\Amex\Helper\ExpirationYearNormalizer;
 
-final class AuthorizeRequest extends AbstractRequest
+class AuthorizeRequest extends AbstractRequest
 {
-    private const API_OPERATION = 'AUTHORIZE';
+    protected const API_OPERATION = 'AUTHORIZE';
 
-    private const PATH = '/merchant/%s/order/%s/transaction/%s';
+    protected const PATH = '/merchant/%s/order/%s/transaction/%s';
 
     /**
      * @throws \Omnipay\Common\Exception\InvalidRequestException
@@ -64,7 +64,7 @@ final class AuthorizeRequest extends AbstractRequest
         return 'PUT';
     }
 
-    private function getCardData(): array
+    protected function getCardData(): array
     {
         return [
             'number' => $this->getCard()->getNumber(),
