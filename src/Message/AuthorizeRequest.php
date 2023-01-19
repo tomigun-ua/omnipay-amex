@@ -9,6 +9,9 @@ use Omnipay\Amex\Helper\ExpirationYearNormalizer;
 
 class AuthorizeRequest extends AbstractRequest
 {
+    use BillingDataTrait;
+    use ShippingDataTrait;
+
     protected const API_OPERATION = 'AUTHORIZE';
 
     protected const PATH = '/merchant/%s/order/%s/transaction/%s';
@@ -18,13 +21,10 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function getData(): array
     {
-        $this->validate('orderId', 'currency', 'amount', 'card', 'transactionReference');
+        $this->validate('orderId', 'currency', 'amount', 'card');
 
         $data = [
             'apiOperation' => self::API_OPERATION,
-            'authentication' => [
-                'transactionId' => $this->getTransactionReference(),
-            ],
             'order' => [
                 'currency' => $this->getCurrency(),
                 'amount' => $this->getAmount(),
@@ -35,13 +35,26 @@ class AuthorizeRequest extends AbstractRequest
                     'card' => $this->getCardData(),
                 ],
             ],
-            'transaction' => [
-                'reference' => $this->getOrderId(),
-            ],
         ];
 
         if ($this->getCorrelationId()) {
             $data['correlationId'] = $this->getCorrelationId();
+        }
+
+        if ($this->getTransactionReference()) {
+            $data['authentication']['transactionId'] = $this->getTransactionReference();
+            $data['order']['reference'] = $this->getOrderId();
+            $data['transaction']['reference'] = $this->getOrderId();
+        }
+
+        if (!$this->getTransactionReference() && $this->getCard()->getBillingAddress1()) {
+            $data['billing']['address'] = $this->getBillingData();
+
+            if (!$this->getCard()->getShippingAddress1()) {
+                $data['shipping']['address']['sameAsBilling'] = 'SAME';
+            } else {
+                $data['shipping']['address'] = $this->getShippingData();
+            }
         }
 
         return $data;

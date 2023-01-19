@@ -6,7 +6,7 @@ namespace Omnipay\Amex;
 
 use Omnipay\Amex\Message\AuthenticatePayerRequest;
 use Omnipay\Amex\Message\AuthorizeRequest;
-use Omnipay\Amex\Message\CaptureRequest;
+use Omnipay\Amex\Message\PurchaseRequest;
 use Omnipay\Amex\Message\CheckStatusRequest;
 use Omnipay\Amex\Message\InitiateAuthenticationRequest;
 
@@ -38,19 +38,19 @@ class Gateway extends \Omnipay\Common\AbstractGateway
         return $this->createRequest(InitiateAuthenticationRequest::class, $options);
     }
 
-    public function authenticatePayer(array $options = []): \Omnipay\Common\Message\RequestInterface
+    public function authorize(array $options = []): \Omnipay\Common\Message\RequestInterface
     {
         return $this->createRequest(AuthenticatePayerRequest::class, $options);
     }
 
-    public function authorize(array $options = []): \Omnipay\Common\Message\RequestInterface
+    public function completeAuthorize(array $options = []): \Omnipay\Common\Message\RequestInterface
     {
         return $this->createRequest(AuthorizeRequest::class, $options);
     }
 
-    public function capture(array $options = []): \Omnipay\Common\Message\RequestInterface
+    public function purchase(array $options = []): \Omnipay\Common\Message\RequestInterface
     {
-        return $this->createRequest(CaptureRequest::class, $options);
+        return $this->createRequest(PurchaseRequest::class, $options);
     }
 
     /**

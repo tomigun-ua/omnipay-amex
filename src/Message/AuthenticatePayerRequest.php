@@ -11,6 +11,9 @@ use Omnipay\Amex\Helper\ExpirationYearNormalizer;
 
 final class AuthenticatePayerRequest extends AbstractRequest
 {
+    use BillingDataTrait;
+    use ShippingDataTrait;
+
     private const API_OPERATION = 'AUTHENTICATE_PAYER';
 
     private const PATH = '/merchant/%s/order/%s/transaction/%s';
@@ -133,83 +136,5 @@ final class AuthenticatePayerRequest extends AbstractRequest
 
             ],
         ];
-    }
-
-    private function getBillingData(): array
-    {
-        $card = $this->getCard();
-
-        $billing = [];
-
-        if ($card->getBillingAddress1()) {
-            $billing['street'] = $card->getBillingAddress1();
-        }
-
-        if ($card->getBillingAddress2()) {
-            $billing['street2'] = $card->getBillingAddress2();
-        }
-
-        if ($card->getCity()) {
-            $billing['city'] = $card->getCity();
-        }
-
-        if ($card->getCountry()) {
-            $billing['country'] = $card->getCountry();
-        }
-
-        if ($card->getBillingPostcode()) {
-            $billing['postcodeZip'] = $card->getBillingPostcode();
-        }
-
-        if ($card->getCompany()) {
-            $billing['company'] = $card->getCompany();
-        }
-
-        if ($card->getBillingState()) {
-            $billing['stateProvince'] = $card->getBillingState();
-        }
-
-        return $billing;
-    }
-
-    private function getShippingData(): array
-    {
-        $card = $this->getCard();
-
-        $shipping = [];
-
-        if ($card->getShippingAddress1()) {
-            $shipping['street'] = $card->getShippingAddress1();
-        }
-
-        if ($card->getShippingAddress1()) {
-            $shipping['street'] = $card->getShippingAddress1();
-        }
-
-        if ($card->getShippingAddress2()) {
-            $shipping['street2'] = $card->getShippingAddress2();
-        }
-
-        if ($card->getCity()) {
-            $shipping['city'] = $card->getCity();
-        }
-
-        if ($card->getCountry()) {
-            $shipping['country'] = $card->getCountry();
-        }
-
-        if ($card->getShippingPostcode()) {
-            $shipping['postcodeZip'] = $card->getShippingPostcode();
-        }
-
-        if ($card->getCompany()) {
-            $shipping['company'] = $card->getCompany();
-        }
-
-        if ($card->getShippingState()) {
-            $shipping['stateProvince'] = $card->getShippingState();
-        }
-
-        return $shipping;
     }
 }
