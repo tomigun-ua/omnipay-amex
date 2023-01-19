@@ -6,6 +6,8 @@ namespace Omnipay\Amex\Message;
 
 use Omnipay\Amex\CustomerBrowser;
 use Omnipay\Amex\Exception\InvalidCustomerBrowserException;
+use Omnipay\Amex\Helper\ExpirationMonthNormalizer;
+use Omnipay\Amex\Helper\ExpirationYearNormalizer;
 
 final class AuthenticatePayerRequest extends AbstractRequest
 {
@@ -93,8 +95,8 @@ final class AuthenticatePayerRequest extends AbstractRequest
             'number' => $this->getCard()->getNumber(),
             'securityCode' => $this->getCard()->getCvv(),
             'expiry' => [
-                'month' => $this->getCard()->getExpiryMonth(),
-                'year' => $this->getCard()->getExpiryMonth(),
+                'month' => ExpirationMonthNormalizer::normalizer($this->getCard()->getExpiryMonth()),
+                'year' => ExpirationYearNormalizer::normalizer($this->getCard()->getExpiryYear()),
             ],
         ];
 
