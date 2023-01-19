@@ -8,6 +8,7 @@ use Omnipay\Amex\Message\AuthenticatePayerRequest;
 use Omnipay\Amex\Message\AuthorizeRequest;
 use Omnipay\Amex\Message\CaptureRequest;
 use Omnipay\Amex\Message\FetchTransactionRequest;
+use Omnipay\Amex\Message\FetchTransactionsRequest;
 use Omnipay\Amex\Message\PurchaseRequest;
 use Omnipay\Amex\Message\CheckStatusRequest;
 use Omnipay\Amex\Message\InitiateAuthenticationRequest;
@@ -75,6 +76,11 @@ class Gateway extends \Omnipay\Common\AbstractGateway
     public function fetchTransaction(array $options = []): \Omnipay\Common\Message\RequestInterface
     {
         return $this->createRequest(FetchTransactionRequest::class, $options);
+    }
+
+    public function fetchTransactions(array $options = []): \Omnipay\Common\Message\RequestInterface
+    {
+        return $this->createRequest(FetchTransactionsRequest::class, $options);
     }
 
     /**

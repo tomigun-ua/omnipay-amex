@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Omnipay\Amex\Message;
 
-class FetchTransactionRequest extends AbstractRequest
+class FetchTransactionsRequest extends AbstractRequest
 {
-    protected const PATH = '/merchant/%s/order/%s/transaction/%s';
+    protected const PATH = '/merchant/%s/order/%s';
 
     /**
      * @throws \Omnipay\Common\Exception\InvalidRequestException
      */
     public function getData(): array
     {
-        $this->validate('orderId', 'transactionId');
+        $this->validate('orderId');
 
         $data = [];
 
@@ -29,11 +29,11 @@ class FetchTransactionRequest extends AbstractRequest
      */
     public function getEndpoint(): string
     {
-        $this->validate('orderId', 'transactionId');
+        $this->validate('orderId');
 
         $host = \rtrim(parent::getEndpoint(), '/');
 
-        return $host . \sprintf(self::PATH, $this->getMerchantId(), $this->getOrderId(), $this->getTransactionId());
+        return $host . \sprintf(self::PATH, $this->getMerchantId(), $this->getOrderId());
     }
 
     public function getHttpMethod(): string

@@ -40,7 +40,7 @@ class VoidRequest extends AbstractRequest
 
         $host = \rtrim(parent::getEndpoint(), '/');
 
-        return $host . \sprintf(self::PATH, $this->getMerchantId(), $this->getOrderId(), $this->getOrderId());
+        return $host . \sprintf(self::PATH, $this->getMerchantId(), $this->getOrderId(), $this->getTransactionId());
     }
 
     public function getHttpMethod(): string
