@@ -137,16 +137,4 @@ class Gateway extends \Omnipay\Common\AbstractGateway
     {
         return $this->getParameter('password');
     }
-
-    /**
-     * @throws \Omnipay\Common\Exception\InvalidRequestException
-     */
-    public function initialize(array $parameters = array()): self
-    {
-        $this->validate('merchantId', 'password');
-
-        parent::initialize($parameters);
-
-        return $this;
-    }
 }
