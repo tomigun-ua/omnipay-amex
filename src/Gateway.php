@@ -6,6 +6,7 @@ namespace Omnipay\Amex;
 
 use Omnipay\Amex\Message\AuthenticatePayerRequest;
 use Omnipay\Amex\Message\AuthorizeRequest;
+use Omnipay\Amex\Message\CaptureRequest;
 use Omnipay\Amex\Message\PurchaseRequest;
 use Omnipay\Amex\Message\CheckStatusRequest;
 use Omnipay\Amex\Message\InitiateAuthenticationRequest;
@@ -21,8 +22,8 @@ class Gateway extends \Omnipay\Common\AbstractGateway
     {
         return [
             'host' => '',
-            'merchantId' => '',
-            'password' => '',
+            'merchantId' => null,
+            'password' => null,
             'apiVersion' => '69',
             'testMode' => false,
         ];
@@ -46,6 +47,11 @@ class Gateway extends \Omnipay\Common\AbstractGateway
     public function completeAuthorize(array $options = []): \Omnipay\Common\Message\RequestInterface
     {
         return $this->createRequest(AuthorizeRequest::class, $options);
+    }
+
+    public function capture(array $options = []): \Omnipay\Common\Message\RequestInterface
+    {
+        return $this->createRequest(CaptureRequest::class, $options);
     }
 
     public function purchase(array $options = []): \Omnipay\Common\Message\RequestInterface
@@ -106,5 +112,17 @@ class Gateway extends \Omnipay\Common\AbstractGateway
     public function getPassword(): string
     {
         return $this->getParameter('password');
+    }
+
+    /**
+     * @throws \Omnipay\Common\Exception\InvalidRequestException
+     */
+    public function initialize(array $parameters = array()): self
+    {
+        $this->validate('merchantId', 'password');
+
+        parent::initialize($parameters);
+
+        return $this;
     }
 }
