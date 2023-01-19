@@ -10,6 +10,7 @@ use Omnipay\Amex\Message\CaptureRequest;
 use Omnipay\Amex\Message\PurchaseRequest;
 use Omnipay\Amex\Message\CheckStatusRequest;
 use Omnipay\Amex\Message\InitiateAuthenticationRequest;
+use Omnipay\Amex\Message\RefundRequest;
 use Omnipay\Amex\Message\VoidRequest;
 
 class Gateway extends \Omnipay\Common\AbstractGateway
@@ -63,6 +64,11 @@ class Gateway extends \Omnipay\Common\AbstractGateway
     public function void(array $options = []): \Omnipay\Common\Message\RequestInterface
     {
         return $this->createRequest(VoidRequest::class, $options);
+    }
+
+    public function refund(array $options = []): \Omnipay\Common\Message\RequestInterface
+    {
+        return $this->createRequest(RefundRequest::class, $options);
     }
 
     /**
