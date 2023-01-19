@@ -57,6 +57,10 @@ class AuthorizeRequest extends AbstractRequest
             }
         }
 
+        if ($this->getCard()->getEmail()) {
+            $data['shipping']['contact']['email'] = $this->getCard()->getEmail();
+        }
+
         return $data;
     }
 
