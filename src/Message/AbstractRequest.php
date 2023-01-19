@@ -25,6 +25,32 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     /**
      * @return static
      */
+    public function setOrderId(string $value): self
+    {
+        return $this->setParameter('orderId', $value);
+    }
+
+    public function getOrderId(): string
+    {
+        return (string)$this->getParameter('orderId');
+    }
+
+    /**
+     * @return static
+     */
+    public function setCorrelationId(string $value): self
+    {
+        return $this->setParameter('correlationId', $value);
+    }
+
+    public function getCorrelationId(): ?string
+    {
+        return $this->getParameter('correlationId');
+    }
+
+    /**
+     * @return static
+     */
     public function setMerchantId(string $value): self
     {
         return $this->setParameter('merchantId', $value);
@@ -96,12 +122,12 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     {
         return [
             'Authorization' => 'Basic ' . \base64_encode(
-                \sprintf(
-                    '%s:%s',
-                    'merchant.' . $this->getMerchantId(),
-                    $this->getPassword()
-                )
-            ),
+                    \sprintf(
+                        '%s:%s',
+                        'merchant.' . $this->getMerchantId(),
+                        $this->getPassword()
+                    )
+                ),
         ];
     }
 

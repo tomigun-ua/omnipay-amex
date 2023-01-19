@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Omnipay\Amex;
 
+use Omnipay\Amex\Message\AuthenticatePayerRequest;
 use Omnipay\Amex\Message\CheckStatusRequest;
 use Omnipay\Amex\Message\InitiateAuthenticationRequest;
 
@@ -33,6 +34,11 @@ class Gateway extends \Omnipay\Common\AbstractGateway
     public function initiateAuthentication(array $parameters = []): \Omnipay\Common\Message\RequestInterface
     {
         return $this->createRequest(InitiateAuthenticationRequest::class, $parameters);
+    }
+
+    public function authenticatePayer(array $parameters = []): \Omnipay\Common\Message\RequestInterface
+    {
+        return $this->createRequest(AuthenticatePayerRequest::class, $parameters);
     }
 
     /**

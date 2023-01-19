@@ -39,20 +39,11 @@ class InitiateAuthenticationRequest extends AbstractRequest
             $data['authentication']['purpose'] = $this->getPurpose();
         }
 
+        if ($this->getCorrelationId()) {
+            $data['correlationId'] = $this->getCorrelationId();
+        }
+
         return $data;
-    }
-
-    /**
-     * @return static
-     */
-    public function setOrderId(string $value): self
-    {
-        return $this->setParameter('orderId', $value);
-    }
-
-    public function getOrderId(): string
-    {
-        return (string)$this->getParameter('orderId');
     }
 
     public function getChannel(): ?string
