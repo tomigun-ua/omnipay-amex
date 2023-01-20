@@ -36,6 +36,7 @@ class AuthorizeRequest extends AbstractRequest
                 'provided' => [
                     'card' => $this->getCardData(),
                 ],
+                'type' => 'CARD',
             ],
         ];
 
