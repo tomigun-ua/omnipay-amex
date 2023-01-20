@@ -6,13 +6,12 @@ namespace Omnipay\Amex\Message;
 
 use Omnipay\Amex\CustomerBrowser;
 use Omnipay\Amex\Exception\InvalidCustomerBrowserException;
-use Omnipay\Amex\Helper\ExpirationMonthNormalizer;
-use Omnipay\Amex\Helper\ExpirationYearNormalizer;
 
 final class AuthenticatePayerRequest extends AbstractRequest
 {
     use BillingDataTrait;
     use ShippingDataTrait;
+    use CardDataTrait;
 
     private const API_OPERATION = 'AUTHENTICATE_PAYER';
 
@@ -90,24 +89,6 @@ final class AuthenticatePayerRequest extends AbstractRequest
     public function getHttpMethod(): string
     {
         return 'PUT';
-    }
-
-    private function getCardData(): array
-    {
-        $card = [
-            'number' => $this->getCard()->getNumber(),
-            'securityCode' => $this->getCard()->getCvv(),
-            'expiry' => [
-                'month' => ExpirationMonthNormalizer::normalizer($this->getCard()->getExpiryMonth()),
-                'year' => ExpirationYearNormalizer::normalizer($this->getCard()->getExpiryYear()),
-            ],
-        ];
-
-        if ($this->getCard()->getFirstName()) {
-            $card['nameOnCard'] = $this->getCard()->getFirstName() . ' ' . $this->getCard()->getLastName();
-        }
-
-        return $card;
     }
 
     /**

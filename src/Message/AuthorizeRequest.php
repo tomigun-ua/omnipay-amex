@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Omnipay\Amex\Message;
 
-use Omnipay\Amex\Helper\ExpirationMonthNormalizer;
-use Omnipay\Amex\Helper\ExpirationYearNormalizer;
+use Omnipay\Amex\CustomerBrowser;
+use Omnipay\Amex\Exception\InvalidCustomerBrowserException;
 
 class AuthorizeRequest extends AbstractRequest
 {
     use BillingDataTrait;
     use ShippingDataTrait;
+    use CardDataTrait;
 
     protected const API_OPERATION = 'AUTHORIZE';
 
@@ -18,6 +19,7 @@ class AuthorizeRequest extends AbstractRequest
 
     /**
      * @throws \Omnipay\Common\Exception\InvalidRequestException
+     * @throws InvalidCustomerBrowserException
      */
     public function getData(): array
     {
@@ -36,6 +38,10 @@ class AuthorizeRequest extends AbstractRequest
                 ],
             ],
         ];
+
+        if ($this->getCustomerBrowser()) {
+            $data['device'] = $this->getDeviceData();
+        }
 
         if ($this->getCorrelationId()) {
             $data['correlationId'] = $this->getCorrelationId();
@@ -64,6 +70,19 @@ class AuthorizeRequest extends AbstractRequest
         return $data;
     }
 
+    public function getCustomerBrowser(): CustomerBrowser
+    {
+        return $this->getParameter('customerBrowser');
+    }
+
+    /**
+     * @return static
+     */
+    public function setCustomerBrowser(array $value): self
+    {
+        return $this->setParameter('customerBrowser', new CustomerBrowser($value));
+    }
+
     /**
      * @throws \Omnipay\Common\Exception\InvalidRequestException
      */
@@ -81,15 +100,18 @@ class AuthorizeRequest extends AbstractRequest
         return 'PUT';
     }
 
-    protected function getCardData(): array
+    /**
+     * @throws InvalidCustomerBrowserException
+     */
+    private function getDeviceData(): array
     {
+        $customerBrowser = $this->getCustomerBrowser();
+
+        $customerBrowser->validate();
+
         return [
-            'number' => $this->getCard()->getNumber(),
-            'securityCode' => $this->getCard()->getCvv(),
-            'expiry' => [
-                'month' => ExpirationMonthNormalizer::normalizer($this->getCard()->getExpiryMonth()),
-                'year' => ExpirationYearNormalizer::normalizer($this->getCard()->getExpiryYear()),
-            ],
+            'browser' => $customerBrowser->getUserAgent(),
+            'ipAddress' => $customerBrowser->getIpAddress(),
         ];
     }
 }
