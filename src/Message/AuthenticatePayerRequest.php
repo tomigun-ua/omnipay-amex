@@ -58,6 +58,10 @@ final class AuthenticatePayerRequest extends AbstractRequest
             $data['shipping']['address']['sameAsBilling'] = 'SAME';
         }
 
+        if ($this->getCard()->getEmail()) {
+            $data['shipping']['contact']['email'] = $this->getCard()->getEmail();
+        }
+
         return $data;
     }
 
