@@ -71,7 +71,7 @@ class AuthorizeRequest extends AbstractRequest
         return $data;
     }
 
-    public function getCustomerBrowser(): CustomerBrowser
+    public function getCustomerBrowser(): ?CustomerBrowser
     {
         return $this->getParameter('customerBrowser');
     }
@@ -81,7 +81,7 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function setCustomerBrowser(array $value): self
     {
-        return $this->setParameter('customerBrowser', new CustomerBrowser($value));
+        return $this->setParameter('customerBrowser', $value ? new CustomerBrowser($value) : null);
     }
 
     /**
