@@ -23,7 +23,7 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function getData(): array
     {
-        $this->validate('orderId', 'currency', 'amount', 'card');
+        $this->validate('orderId', 'currency', 'amount', 'card', 'transactionId');
 
         $data = [
             'apiOperation' => static::API_OPERATION,
@@ -89,8 +89,6 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function getEndpoint(): string
     {
-        $this->validate('orderId', 'transactionId');
-
         $host = \rtrim(parent::getEndpoint(), '/');
 
         return $host . \sprintf(self::PATH, $this->getMerchantId(), $this->getOrderId(), $this->getTransactionId());
