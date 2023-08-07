@@ -51,7 +51,7 @@ class AuthorizeRequest extends AbstractRequest
         if ($this->getTransactionReference()) {
             $data['authentication']['transactionId'] = $this->getTransactionReference();
             $data['order']['reference'] = $this->getOrderId();
-            $data['transaction']['reference'] = $this->getOrderId();
+            $data['transaction']['reference'] = $this->getTransactionReference();
         }
 
         if (!$this->getTransactionReference() && $this->getCard()->getBillingAddress1()) {
