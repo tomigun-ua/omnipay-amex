@@ -1,6 +1,6 @@
 {
     "name": "tomigun-ua/omnipay-amex",
-    "version": "0.9.6",
+    "version": "0.9.7",
     "type": "library",
     "description": "Amex driver for the Omnipay 3.0 payment processing library",
     "keywords": [
