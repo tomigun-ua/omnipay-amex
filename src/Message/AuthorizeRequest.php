@@ -26,7 +26,7 @@ class AuthorizeRequest extends AbstractRequest
         $this->validate('orderId', 'currency', 'amount', 'card');
 
         $data = [
-            'apiOperation' => self::API_OPERATION,
+            'apiOperation' => static::API_OPERATION,
             'order' => [
                 'currency' => $this->getCurrency(),
                 'amount' => $this->getAmount(),
