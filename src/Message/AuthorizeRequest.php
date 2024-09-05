@@ -9,6 +9,7 @@ use Omnipay\Amex\Exception\InvalidCustomerBrowserException;
 
 class AuthorizeRequest extends AbstractRequest
 {
+    use AirlineDataTrait;
     use BillingDataTrait;
     use ShippingDataTrait;
     use CardDataTrait;
@@ -161,34 +162,5 @@ class AuthorizeRequest extends AbstractRequest
             'browser' => $customerBrowser->getUserAgent(),
             'ipAddress' => $customerBrowser->getIpAddress(),
         ];
-    }
-
-    private function buildAirlineData(array &$data): void
-    {
-        if ($this->getDocumentType()) {
-            $data['airline']['documentType'] = $this->getDocumentType();
-        }
-
-        if ($this->getBookingReference()) {
-            $data['airline']['bookingReference'] = $this->getBookingReference();
-        }
-
-        if ($this->getTravelAgentCode()) {
-            $data['airline']['ticket']['issue']['travelAgentCode'] = $this->getTravelAgentCode();
-        }
-
-        if ($this->getTravelAgentName()) {
-            $data['airline']['ticket']['issue']['travelAgentName'] = $this->getTravelAgentName();
-        }
-
-        if ($this->getPassenger() !== null) {
-            $data['airline']['passenger'] = \array_map(
-                static fn(array $passenger) => [
-                    'firstName' => $passenger['firstName'] ?? '',
-                    'lastName' => $passenger['lastName'] ?? '',
-                ],
-                $this->getPassenger()
-            );
-        }
     }
 }

@@ -6,6 +6,8 @@ namespace Omnipay\Amex\Message;
 
 class RefundRequest extends AbstractRequest
 {
+    use AirlineDataTrait;
+
     protected const API_OPERATION = 'REFUND';
 
     protected const PATH = '/merchant/%s/order/%s/transaction/%s';
@@ -29,6 +31,8 @@ class RefundRequest extends AbstractRequest
         if ($this->getCorrelationId()) {
             $data['correlationId'] = $this->getCorrelationId();
         }
+
+        $this->buildAirlineData($data);
 
         return $data;
     }
