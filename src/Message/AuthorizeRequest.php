@@ -87,56 +87,6 @@ class AuthorizeRequest extends AbstractRequest
         return $this->setParameter('customerBrowser', $value ? new CustomerBrowser($value) : null);
     }
 
-    public function getBookingReference(): ?string
-    {
-        return $this->getParameter('bookingReference');
-    }
-
-    public function setDocumentType(?string $value): self
-    {
-        return $this->setParameter('documentType', $value);
-    }
-
-    public function getDocumentType(): ?string
-    {
-        return $this->getParameter('documentType');
-    }
-
-    public function setPassenger(?array $value): self
-    {
-        return $this->setParameter('passenger', $value);
-    }
-
-    public function getPassenger(): ?array
-    {
-        return $this->getParameter('passenger');
-    }
-
-    public function setBookingReference(?string $value): self
-    {
-        return $this->setParameter('bookingReference', $value);
-    }
-
-    public function getTravelAgentCode(): ?string
-    {
-        return $this->getParameter('travelAgentCode');
-    }
-
-    public function setTravelAgentCode(?string $value): self
-    {
-        return $this->setParameter('travelAgentCode', $value);
-    }
-
-    public function getTravelAgentName(): ?string
-    {
-        return $this->getParameter('travelAgentName');
-    }
-
-    public function setTravelAgentName(?string $value): self
-    {
-        return $this->setParameter('travelAgentName', $value);
-    }
-
     public function getEndpoint(): string
     {
         $host = \rtrim(parent::getEndpoint(), '/');
